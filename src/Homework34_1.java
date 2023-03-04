@@ -1,5 +1,8 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Homework34_1 {
   /*
@@ -34,10 +37,44 @@ public class Homework34_1 {
   код, который нужен, чтобы исправить несовершенство ранее написанного кода
    */
   public static void main(String[] args) throws IOException {
-    File inputFile = new File("res/dict.txt");
-    Map<String, String> slang = (inputFile); // нужен метод перед (inputFile)
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    Map<String, String> slang = readSlang(bufferedReader);
+    List<String> request = readRequest(bufferedReader);
+    bufferedReader.close();
+    printResponse(slang, request);
 
-    System.out.println(); // нужен вывод
+  }
+  public static void printResponse(Map<String, String> slangWord, List<String> request) {
+    for (String slang : request) {
+      System.out.println(definition); // TODO connect 'request' and 'slangWord', finish 'print'
+    }
+  }
+
+
+  //нужно прочитать запрос "ключа" !!!с клавиатуры!!!, для которого нужно найти определение
+  public static List<String> readRequest(BufferedReader bufferedReader) throws IOException {
+    List<String> request = new ArrayList<>();
+    int n = Integer.parseInt(bufferedReader.readLine());
+    for (int i = 0; i < n; ++i) {
+      request.add(bufferedReader.readLine());
+      System.out.println(request);
+    }
+    return request;
+  }
+
+  public static Map<String, String> readSlang(BufferedReader bufferedReader) throws IOException{
+    Map<String, String> result = new HashMap<>();
+    int n = Integer.parseInt(bufferedReader.readLine());
+    for (int i = 0; i < n ; ++i) {
+      String line = bufferedReader.readLine();
+      int colon = line.indexOf(':');
+      String slangWord = line.substring(0,colon);
+      String definition = line.substring(colon + 1);
+
+      System.out.println("for " + slangWord + " definition is " + definition);
+      System.out.println();
+    }
+    return result;
   }
 
 }
